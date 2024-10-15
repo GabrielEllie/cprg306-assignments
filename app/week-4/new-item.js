@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function NewItem(itemName, realQuantity, cateegory) {
-    let [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
     const btnStyle = "w-8 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-400";
 
     const incrementQuantity = () => {
