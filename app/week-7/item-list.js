@@ -1,22 +1,19 @@
 "use client"
 import { useState } from "react";
 import Item from "./item";
-import items from "./items.json";
 
-export default function ItemList() {
+export default function ItemList({listOfItems}) {
     const btnStyle = "text-white rounded p-1 m-2 active:bg-yellow-500 ";
-    let itemsArray = items.map( (item) => ({...item}));
 
     // state for checking what to sort the list by
     const [sortBy, setSortBy] = useState("name");
-    const [itemsList, addItemsList] = useState(itemsArray);
 
     // switches sortBy variable
     const sortByName = () => setSortBy("name");
     const sortByCategory = () => setSortBy("category");
 
     //sorts the current list depending on the sortBy variable
-    itemsList.sort( (a, b) => {
+    listOfItems.sort( (a, b) => {
         if (isNaN(parseInt(a[sortBy]))) {
             
             let varA = a[sortBy];
@@ -39,7 +36,7 @@ export default function ItemList() {
                 <button className={`bg-orange-600 ${btnStyle}`} onClick={sortByCategory}>Sort Category</button>
             </div>
             
-            {itemsList.map((obj) => (
+            {listOfItems.map((obj) => (
                 <Item itemObj={obj} key={obj.id}/>
             ))}
         </div>
