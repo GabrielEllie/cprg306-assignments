@@ -36,15 +36,20 @@ export default function MealIdeas({ingredient}) {
 
     return(
         <div>
-            <h3 className="text-2xl text-white">Meal Ideas</h3>
+            <h3 className="text-2xl text-white">Meal Ideas for {ingredient} </h3>
             <ul>
                 {meals == '' || meals == null ? 
-                (<p> no meals for {ingredient} </p> 
+                (<p> None </p> 
                 ) : (
                 meals.map((meal) => (
-                    <li key={meal.idMeal}>
-                        <p>{meal.strMeal}</p>
-                    </li>
+                    <div className="flex flex-col justify-center border-2 border-cyan-800 max-w-60 p-2 m-2 text-center">
+                        <li key={meal.idMeal}>
+                            <img src={meal.strMealThumb} 
+                            className="inline-block w-40"></img>
+                            <p>{meal.strMeal}</p>
+                        </li>
+                    </div>
+                    
                 )))
                 }
                 
