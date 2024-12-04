@@ -49,7 +49,7 @@ export default function Page() {
     if (!user) {
         return(
             <main>
-                <p>You must be logged in to submit a blog post.</p>
+                <p>You must be logged in to submit a new item.</p>
             </main>
         );
     }

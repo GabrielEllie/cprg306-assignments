@@ -22,8 +22,8 @@ export async function getItems(userId) {
 
 export async function addItem(userId, newItemObj) {
     try {
-        const newItemRef = collection(db, "users", userId, "items");
-        const newItemPostPromise = await addItem(newItemRef, newItemObj);
+        const newItemRef = collection(db, 'users', userId, 'items');
+        const newItemPostPromise = await addDoc(newItemRef, newItemObj);
     } catch (error) {
         console.error("Problem adding item", error);
     }
