@@ -41,7 +41,6 @@ export default function NewItem({addNewItemFunc}) {
         console.dir(event);
 
         let item = {
-            id: `${quantity}${category}`,
             name: name,
             quantity: quantity,
             category: category

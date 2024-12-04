@@ -6,7 +6,6 @@ import ItemList from "./item-list";
 import MealIdeas from "./meal-ideas";
 import { getItems, addItem } from "../_services/shopping-list-service.js";
 import { useUserAuth } from "../_utils/auth-context";
-import { isAssetError } from "next/dist/client/route-loader";
 
 export default function Page() {
     let itemsArray = [];
