@@ -3,16 +3,15 @@ import { collection, getDocs, addDoc, query } from "firebase/firestore";
 
 export async function getItems(userId) {
     try {
-        itemsReference = collection(db, 'users', userId, 'items');
+        let itemsArray = [];
+        const itemsReference = collection(db, 'users', userId, 'items');
         const q = query(itemsReference);
         const querySnapshot = await getDocs(q);
-        let itemsArray = [];
         querySnapshot.forEach((docSnap) => {
-            let thisPost = {
-                id: docSnap.id,
-                ...docSnap.data()
-            }
-            itemsArray.push(thisPost);
+                itemsArray.push({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                });
         });
         return itemsArray;
     } catch (error) {
@@ -24,6 +23,7 @@ export async function addItem(userId, newItemObj) {
     try {
         const newItemRef = collection(db, 'users', userId, 'items');
         const newItemPostPromise = await addDoc(newItemRef, newItemObj);
+        return newItemPostPromise.id;
     } catch (error) {
         console.error("Problem adding item", error);
     }

@@ -8,7 +8,6 @@ import { getItems, addItem } from "../_services/shopping-list-service.js";
 import { useUserAuth } from "../_utils/auth-context";
 
 export default function Page() {
-    let itemsArray = [];
     const [itemsList, setItemsList] = useState([]);
     const [selectedItemName, setSelectedItemName] = useState("");
     const { user } = useUserAuth();
@@ -16,11 +15,9 @@ export default function Page() {
     async function loadItems() {
         try {
             if (user) {
-                setItemsList(getItems(user.id));    
-            } else {
-                setItemsList([]);
-            }
-            itemsArray = itemsList;
+                const items = await getItems(user.uid);
+                setItemsList(items);   
+            }     
         } catch (error) {
             setItemsList([]);
             console.error("Couldn't get items");
@@ -28,22 +25,16 @@ export default function Page() {
     }
     
     const addItemsList = (newItem) => {
-        // if(itemsList == [] || itemsList == null) {
-        //     setItemsList(newItem)  
-        // } else {
-        //     setItemsList([...itemsList, newItem])
-        // }
         addItem(user.uid, newItem);
     }
 
     const handleItemSelect = (event) => {
-        console.log('rawr');
         setSelectedItemName(event.target.getAttribute("ingredient-id"));
     }
 
     useEffect(() => {
         loadItems()
-    }, [user]);
+    }, [user, itemsList]);
     
     if (!user) {
         return(
@@ -58,7 +49,7 @@ export default function Page() {
             <div className="flex flex-row m-4 text-white">
                 <div className="flex flex-col mr-4">
                     <NewItem addNewItemFunc={addItemsList}/>
-                    <ItemList listOfItems={itemsArray} onItemsSelect={handleItemSelect}/>
+                    <ItemList listOfItems={itemsList} onItemsSelect={handleItemSelect}/>
                 </div>
                 <MealIdeas ingredient={selectedItemName}/>
             </div>  
